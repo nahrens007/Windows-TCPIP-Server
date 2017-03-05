@@ -4,3 +4,5 @@ This TCP IP server is able to handle multiple clients. When a client connects an
 I used the following resources for creating the server:<br/>
 http://www.bogotobogo.com/cplusplus/multithreading_win32A.php<br/>
 https://msdn.microsoft.com/en-us/library/windows/desktop/ms738545(v=vs.85).aspx<br/>
+# Compile
+When you compile, you must link to ws2_32; it contains the socket library required. 
