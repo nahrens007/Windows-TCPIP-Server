@@ -132,13 +132,13 @@ int main(int argc, char *argv[])
 			WSACleanup();
 			return 1;
 		}
-
 		cout << "Client accepted." << endl;
 		// ClientSocket is the socket which is connected to the client
 		// Create a new thread for the client
 		// Create a thread to handle the new client
 		SOCKET* sock = new SOCKET(ClientSocket);
 		clients.push_back(*sock);
+
 		CreateThread(0, 0, tclient, sock, 0, NULL);
 	} while (true); // never stop the server (use CTR+C to force stop)
 }
@@ -158,7 +158,7 @@ void broadcast(char msg[], int buflen)
 	 */
 	int iSendResult;
 	cout << "broadcast: ";
-	for (int i = 0; i < buflen; i++)
+	for (int i = 0; i < buflen-2; i++)
 		cout << msg[i];
 	cout << endl;
 	for (list<SOCKET>::iterator it = clients.begin(); it != clients.end(); ++it)
@@ -210,6 +210,9 @@ int handle_client(SOCKET client)
 	char recvbuf[DEFAULT_BUFLEN];
 	int iResult;
 	int recvbuflen = DEFAULT_BUFLEN;
+
+	char msg[6] = "Hello";
+	send(client, msg, 6, 0);
 
 	// Receive until the peer shuts down the connection
 	do
